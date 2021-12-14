@@ -1,0 +1,685 @@
+\documentclass[14pt, oneside]{SavkinSeliverstov}
+
+\title{Разработка графической программы, моделирующую солнечную систему}
+\author{Селиверстов Д.Н.\ ,Савкин Д.А.}
+\groupnumber{506}
+\GradebookNumber{1337}
+\supervisor{Шмаков И.А.}
+\supervisordegree{к.ф.-м.н., доцент}
+\ministry{Министерство науки и высшего образования}
+\country{Российской Федерации}
+\fulluniversityname{ФГБОУ ВО Алтайский государственный университет}
+\institute{Институт цифровых технологий, электроники и физики}
+\department{Кафедра вычислительной техники и электроники}
+\departmentchief{В.\,В.~Пашнев}
+\departmentchiefdegree{к.ф.-м.н., доцент}
+\shortdepartment{ВТиЭ}
+\abstractRU{В данной лабораторной работе мы смоделировали планеты с их радиусом, поставили их в нужном порядке, сделали так, чтобы они вращались вокруг солнца( движение планет у нас осуществляется по окружности) и сделали меню с информацией о планетах. Работа представляет из себя обучение взаимодействию в команде и углубление в изучении компьютерного моделирования.}
+\keysRU{компьютерное моделирование, cистема управления версиями}
+
+\date{\the\year}
+
+% Подключение файлов с библиотекой.
+\addbibresource{graduate-students.bib}
+
+\begin{document}
+\maketitle
+
+\setcounter{page}{2}
+\makeabstract
+\tableofcontents
+
+\chapter*{Введение}
+Цель нашей работы  создание информационной программы по солнечной системе на языке программирование Python3 используя библиотеку Tkinter. Роль кодировщика принадлежит Селиверстову Д.Н. , роль лидера Савкину Д.А.. Нам необходимо смоделировать солнечную систему, осуществить движение планет по орбитам вокруг солнца и сделать информационное поле о планетах.
+\addcontentsline{toc}{section}{Введение}
+
+
+\chapter{Глава 1}
+\section{Постановка Задачи}
+Требуется создать кроссплатформенную программу с использованием языка программирования Python3 и библиотеки tkinter. Тема программы - информационная программа по солнечной системе. Программа должна содержать информацию о планетах(орбитальные характеристики, физические характеристики, температура, атмосфера), планеты должны двигаться по орбитам, движение планет должно быть взаимосвязано и скорость движения планеты должна регулироваться в графическом интерфейсе.
+\section{Описание используемых библиотек, модулей и инструментария}
+Python3 - язык программирования который мы будем использовать. Для реализации солнечной системы нам необходима библиотека tkinter, который позволяет создавать объекты в 2D пространстве и отображать их в окне. Также используются модуль math, этот модуль предоставляет обширный функционал для работы с числами. Для компиляции программы мы использовали Geany - среда для написания кода с необходимым нам функционалом.
+
+\chapter{Глава 2}
+\section{Парадигма}
+Объектно-ориентированное программирование - это парадигма разработки программных систем, в которой приложения состоят из объектов.
+Объекты — это сущности, у которых есть свойства и поведение. Обычно объекты являются экземплярами какого-нибудь класса.
+\section{Разработка}
+Изначально была выбрана библиотека на которой будет строиться модель солнечной системы и по какому принципу будет совершена работа. Далее кодировщик начал изучать использование библиотеки tkinter. Создал планеты и определил по каким точкам будут вращаться планеты вокруг солнца. Далее сделал меню в котором содержалась информация о планетах(название планеты, орбитальные и физические характеристики, радиус орбиты, масса, плотность, период вращения, период обращения, наклон орбиты, среднее расстояние от солнца, средняя температура, состав атмосферы, содержание газов)
+\chapter*{Заключение}
+В заключении нам удалось создать образную модель солнечной системы с использованием библиотеки Tkinter. Движение планет осуществляется по орбитам относительно единого центра – Солнца. Скорость планет является одинаковой. Диаметр планет не соответствует реалиям, и выбран произвольно, масштаб планет логически сохранен.  К сожалению, не получилось вывести информацию, а именно орбитальные и физические характеристики каждой из планет, соответственно, при нажатии на них. Но попытки были, и все же решили остановиться на варианте в выборе необходимой информации в “Меню”. С регулированием скорости планет получилось тоже самое. Но попытки опять же – были. За период работы над данным проектом мы изучили множество материала и провели колоссальную работу в команде.
+\addcontentsline{toc}{section}{Заключение}
+
+\chapter*{Список литературы}
+[Электронный ресурс] - Графика в Python и задачи моделирования -  https://intuit.ru/studies/courses/3489/731/lecture/25771?page=2
+
+[Электронный ресурс] - Tkinter курс по изучению - https://python-scripts.com/tkinterTkinter
+
+[Электронный ресурс] - Обучение Python GUI - https://pythonru.com/uroki/obuchenie-python-gui-uroki-po-tkinter 
+
+[Электронный ресурс] - Планеты - https://bigenc.ru/physics/text/3143354 
+
+\addcontentsline{toc}{section}{Список литературы}
+
+\chapter*{Приложения}
+from tkinter import *
+
+from math import *
+
+
+def point\underline{\hspace{0.2cm}}rotate(x0, y0, x, y, dalfa):
+
+	r = sqrt((x-x0)*(x-x0)+(y-y0)*(y-y0))
+	
+	alfa = atan2(y-y0, x-x0)
+	
+	beta = alfa + dalfa
+	
+	x = x0 + r*cos(beta)
+	
+	y = y0 + r*sin(beta)
+	
+	return x, y
+	
+
+
+def oval\underline{\hspace{0.2cm}}rotate(oval_id, x0, y0, dalfa):
+
+	x1, y1, x2, y2 = canv.coords(oval\underline{\hspace{0.2cm}}id)
+	
+	centr\underline{\hspace{0.2cm}}x, centr\underline{\hspace{0.2cm}}y = (x1+x2)/2, (y1+y2)/2
+	
+	delta\underline{\hspace{0.2cm}}x, delta\underline{\hspace{0.2cm}}y = abs(x1-x2)/2, abs(y1-y2)/2
+	
+	centr\underline{\hspace{0.2cm}}x, centr\underline{\hspace{0.2cm}}y =
+	
+	point\underline{\hspace{0.2cm}}rotate(x0, y0, centr\underline{\hspace{0.2cm}}x, centr_y, dalfa)
+	
+	x1, y1 = centr\underline{\hspace{0.2cm}}x - delta\underline{\hspace{0.2cm}}x,
+	
+	centr\underline{\hspace{0.2cm}}y - delta\underline{\hspace{0.2cm}}y
+
+x2, y2 = centr\underline{\hspace{0.2cm}}x + delta\underline{\hspace{0.2cm}}x, 
+
+centr\underline{\hspace{0.2cm}}y + delta\underline{\hspace{0.2cm}}y
+	
+	canv.coords(oval\underline{\hspace{0.2cm}}id, x1, y1, x2, y2)
+
+
+def obj\underline{\hspace{0.2cm}}rotate(obj\underline{\hspace{0.2cm}}id, x0, y0, dalfa):
+
+	obj\underline{\hspace{0.2cm}}crds = canv.coords(obj\underline{\hspace{0.2cm}}id)
+	
+	for coord\underline{\hspace{0.2cm}}num in range( len(obj\underline{\hspace{0.2cm}}crds)//2):
+	
+		x, y = obj\underline{\hspace{0.2cm}}crds[coord\underline{\hspace{0.2cm}}num*2],
+		
+		obj\underline{\hspace{0.2cm}}crds[coord\underline{\hspace{0.2cm}}num*2 + 1]
+		
+		x, y = point_rotate(x0, y0, x, y, dalfa)
+		
+		obj_crds[coord\underline{\hspace{0.2cm}}num*2] = x; 
+		
+		obj_crds[coord\underline{\hspace{0.2cm}}num*2 + 1] = y
+		
+	canv.coords(obj\underline{\hspace{0.2cm}}id, *obj\underline{\hspace{0.2cm}}crds)     
+	
+
+class Planet:
+
+	def \underline{\hspace{0.2cm}}init\underline{\hspace{0.2cm}}(self, form, center= [0,0], templ = [-1,-1, 1, 1], scale = 10,
+	
+		     fill\underline{\hspace{0.2cm}}color = "white", bg\underline{\hspace{0.2cm}}color = "black",
+		     
+		     line\underline{\hspace{0.2cm}}width = 1,
+		     
+		     beg\underline{\hspace{0.2cm}}pos = [0,0], speed = 1, angle = 0,
+		     
+		     path = [], path\underline{\hspace{0.2cm}}center = [0,0]):
+		     
+				 
+		
+		self.form = form
+		
+		self.path = path
+		
+		self.angle = angle
+		
+		self.center = []
+		
+		self.center.append( center[0] + beg\underline{\hspace{0.2cm}}pos[0] )
+		
+		self.center.append( center[1] + beg\underline{\hspace{0.2cm}}pos[1] )
+		
+		self.path\underline{\hspace{0.2cm}}center = []
+		
+		self.speed = speed
+		
+		self.path\underline{\hspace{0.2cm}}center.append( path\underline{\hspace{0.2cm}}center[0])
+		
+		self.path\underline{\hspace{0.2cm}}center.append( path\underline{\hspace{0.2cm}}center[1])
+		
+		self.node\underline{\hspace{0.2cm}}num = 0
+		
+		
+		self.templ =[]
+		
+		for templ\underline{\hspace{0.2cm}}num in range(len(templ)):
+		
+			center\underline{\hspace{0.2cm}}num = templ\underline{\hspace{0.2cm}}num % 2
+			
+			self.templ.append( self.center[center\underline{\hspace{0.2cm}}num] + templ[templ\underline{\hspace{0.2cm}}num]*scale ) 
+			
+			       
+		
+		if form == "oval":
+		
+			self.obj = canv.create\underline{\hspace{0.2cm}}oval( *self.templ,
+			fill=fill\underline{\hspace{0.2cm}}color)
+			
+	
+	def shift(self, step\underline{\hspace{0.2cm}}x, step\underline{\hspace{0.2cm}}y ):
+	
+		canv.move( self.obj, step_x, step\underline{\hspace{0.2cm}}y  )
+		
+		self.center[0] += step\underline{\hspace{0.2cm}}x
+		
+		self.center[1] += step\underline{\hspace{0.2cm}}y
+		
+	
+	def rotate( self, delta\underline{\hspace{0.2cm}}grad, x0, y0 ):
+	
+		delta\underline{\hspace{0.2cm}}fi = pi*delta\underline{\hspace{0.2cm}}grad/180
+
+		if self.form == "oval":
+		
+			oval\underline{\hspace{0.2cm}}rotate(self.obj, x0, y0, delta\underline{\hspace{0.2cm}}fi)
+			
+		else:
+		
+			obj\underline{\hspace{0.2cm}}rotate(self.obj, x0, y0, delta\underline{\hspace{0.2cm}}fi)
+
+		self.angle += delta\underline{\hspace{0.2cm}}fi
+		
+		self.center[0], self.center[1] = point\underline{\hspace{0.2cm}}rotate(x0, y0, self.center[0],
+		
+		self.center[1], delta\underline{\hspace{0.2cm}}fi)
+
+	
+	def jump( self, node\underline{\hspace{0.2cm}}num ):
+	
+		if self.path == []:  return
+		
+		self.node\underline{\hspace{0.2cm}}num = node\underline{\hspace{0.2cm}}num
+		
+		
+		
+		node\underline{\hspace{0.2cm}}x = self.path[ node\underline{\hspace{0.2cm}}num ][0] + self.path\underline{\hspace{0.2cm}}center[0]
+		
+		node\underline{\hspace{0.2cm}}y = self.path[ node\underline{\hspace{0.2cm}}num ][1] + self.path\underline{\hspace{0.2cm}}center[1]
+		
+		old\underline{\hspace{0.2cm}}x, old\underline{\hspace{0.2cm}}y = self.center
+				
+		step\underline{\hspace{0.2cm}}x = node\underline{\hspace{0.2cm}}x - old\underline{\hspace{0.2cm}}x
+		
+		step\underline{\hspace{0.2cm}}y = node\underline{\hspace{0.2cm}}y - old\underline{\hspace{0.2cm}}y
+		
+		self.shift( step\underline{\hspace{0.2cm}}x, step\underline{\hspace{0.2cm}}y )
+		
+		if node\underline{\hspace{0.2cm}}num == len(self.path)-1:  return
+		
+		next\underline{\hspace{0.2cm}}x, next\underline{\hspace{0.2cm}}y = self.path[ node\underline{\hspace{0.2cm}}num + 1]
+		
+		next\underline{\hspace{0.2cm}}x += self.path\underline{\hspace{0.2cm}}center[0]
+		
+		next\underline{\hspace{0.2cm}}y += self.path\underline{\hspace{0.2cm}}center[1]
+
+		new\underline{\hspace{0.2cm}}angle = atan2( next\underline{\hspace{0.2cm}}y -
+		node\underline{\hspace{0.2cm}}y, next\underline{\hspace{0.2cm}}x - node\underline{\hspace{0.2cm}}x )
+		delta\underline{\hspace{0.2cm}}grad = (new\underline{\hspace{0.2cm}}angle - self.angle)*180/pi
+		
+		self.rotate( delta\underline{\hspace{0.2cm}}grad, *self.center )
+		
+
+	def move( self, cycle = 0):
+		
+		if self.path == []:
+		
+			step\underline{\hspace{0.2cm}}x = self.speed*cos(self.angle)
+			
+			step\underline{\hspace{0.2cm}}y = self.speed*sin(self.angle)
+			
+			self.shift( step\underline{\hspace{0.2cm}}x, step\underline{\hspace{0.2cm}}y )
+			
+			return
+		
+		node\underline{\hspace{0.2cm}}num = self.node\underline{\hspace{0.2cm}}num + self.speed
+		if cycle == 0:
+		
+			if node\underline{\hspace{0.2cm}}num < 0: node\underline{\hspace{0.2cm}}num = 0
+			
+			elif node\underline{\hspace{0.2cm}}num >= len(self.path): node\underline{\hspace{0.2cm}}num = len(self.path) -1
+			
+		else:
+		
+			if node\underline{\hspace{0.2cm}}num < 0: node_num += len(self.path)
+			
+			if node\underline{\hspace{0.2cm}}num >= len(self.path):
+			
+				node\underline{\hspace{0.2cm}}num = len(self.path)-1 if cycle==0 else
+				node\underline{\hspace{0.2cm}}num % len(self.path)
+				
+		
+		if node\underline{\hspace{0.2cm}}num != self.node\underline{\hspace{0.2cm}}num:
+			self.jump( node\underline{\hspace{0.2cm}}num )
+			
+
+def mercury\underline{\hspace{0.2cm}}menu():
+
+	mercury\underline{\hspace{0.2cm}}menu = Toplevel(root)
+	
+	mercury\underline{\hspace{0.2cm}}menu.resizable(width = False, height = False)
+	
+	canv\underline{\hspace{0.2cm}}1 = Canvas(mercury\underline{\hspace{0.2cm}}menu, width=500, height=350, bg = 'black')
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(250,20,text = "Меркурий:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(200,50,text = "Орбитальные и физические характеристики:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(160,70,text = "Радиус орбиты = 2439,7 ± 1,0 км; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(110,90,text = "Масса = 3.33×10²³ кг; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(120,110,text = "Плотность = 5,43 г/см³; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(145,130,text = "Период вращения = 58,65 сут; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(143,150,text = "Период обращения — 88 сут; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(110,170,text = "Наклон орбиты — 7°; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(190,190,text = "Среднее расстояние от солнца - 0,39 а.е; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(145,210,text = "Средняя температура - 67 °C ; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(95,230,text = "Состав Атмосферы:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(95,250,text = "Кислород 42,0%:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(80,270,text = "Натрий 29,0%", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(85,290,text = "Водород 22,0%", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(63,310,text = "Гелий 6%", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.create\underline{\hspace{0.2cm}}text(95,330,text = "Калий 0,5 и д.р %", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}1.pack()
+
+def venera\underline{\hspace{0.2cm}}menu():
+	
+	venera\underline{\hspace{0.2cm}}menu = Toplevel(root)
+	
+	venera\underline{\hspace{0.2cm}}menu.resizable(width = False, height = False)
+	
+	canv\underline{\hspace{0.2cm}}2 = Canvas(venera\underline{\hspace{0.2cm}}menu, width=500, height=350, bg = 'black')
+	
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(250,20,text = "Венера:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(200,50,text = "Орбитальные и физические характеристики:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(138,70,text = "Радиус орбиты = 6051,8 км; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(110,90,text = "Масса = 4.87×10²⁴ кг; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(120,110,text = "Плотность = 5,24 г/см³; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(140,130,text = "Период вращения = 243 сут; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(158,150,text = "Период обращения — 224,7 сут; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(120,170,text = "Наклон орбиты — 3,4°; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(192,190,text = "Среднее расстояние от солнца - 0,72 а.е; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(152,210,text = "Средняя температура - 463 °C ; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(92,230,text = "Состав Атмосферы:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(125,250,text = "Углекислого газа 96,5 %:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}2.create\underline{\hspace{0.2cm}}text(85,270,text = "Азот 3,5% и д.р ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}2.pack()
+	
+def earth\underline{\hspace{0.2cm}}menu():
+
+	earth\underline{\hspace{0.2cm}}menu = Toplevel(root)
+	
+	earth\underline{\hspace{0.2cm}}menu.resizable(width = False, height = False)
+
+	canv\underline{\hspace{0.2cm}}3 = Canvas(earth\underline{\hspace{0.2cm}}menu, width=500, height=350, bg = 'black')
+
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(250,20,text = "Земля:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(200,50,text = "Орбитальные и физические характеристики:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(150,70,text = "Радиус орбиты = 149,6 млн км; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(108,90,text = "Масса = 5,97×10²⁴ кг; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(118,110,text = "Плотность = 5,52 г/см³; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(185,130,text = "Период вращения = 23 ч. 26 мин. 4 сек; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(155,150,text = "Период обращения — 365,3 сут; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(128,170,text = "Наклон орбиты — 23,44°; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(190,190,text = "Среднее расстояние от солнца - 1,00 а.е; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(145,210,text = "Средняя температура - 14 °C ; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(92,230,text = "Состав Атмосферы:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(88,250,text = "Кислород 21 %:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}3.create\underline{\hspace{0.2cm}}text(85,270,text = "Азот 78% и д.р ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}3.pack()
+
+def mars\underline{\hspace{0.2cm}}menu():
+	
+	mars\underline{\hspace{0.2cm}}menu = Toplevel(root)
+	
+	mars\underline{\hspace{0.2cm}}menu.resizable(width = False, height = False)
+
+	canv\underline{\hspace{0.2cm}}4 = Canvas(mars\underline{\hspace{0.2cm}}menu, width=500, height=350, bg = 'black')
+
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(250,20,text = "Марс:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(200,50,text = "Орбитальные и физические характеристики:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(130,70,text = "Радиус орбиты = 3390 км; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(108,90,text = "Масса = 6.42×10²³ кг; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(118,110,text = "Плотность = 3,93 г/см³; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(156,130,text = "Период вращения = 24 ч 37 мин; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(153,150,text = "Период обращения — 686,9 сут; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(122,170,text = "Наклон орбиты — 1,85°; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(190,190,text = "Среднее расстояние от солнца - 1,52 а.е; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(155,210,text = "Средняя температура - -63,1 °C ; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(92,230,text = "Состав Атмосферы:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(105,250,text = "Углекислый газ 95%:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(115,270,text = "Молекулярный газ 2,8%", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}4.create\underline{\hspace{0.2cm}}text(80,290,text = "Аргон 2% и д.р ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}4.pack()
+
+def upiter\underline{\hspace{0.2cm}}menu():
+
+	upiter\underline{\hspace{0.2cm}}menu = Toplevel(root)
+	
+	upiter\underline{\hspace{0.2cm}}menu.resizable(width = False, height = False)
+	
+	canv\underline{\hspace{0.2cm}}5 = Canvas(upiter\underline{\hspace{0.2cm}}menu, width=500, height=350, bg = 'black')
+
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(250,20,text = "Юпитер:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(200,50,text = "Орбитальные и физические характеристики:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(155,70,text = "Радиус орбиты = 69911 ± 6 км; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(108,90,text = "Масса = 1.9×10²⁷ кг; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(128,110,text = "Плотность = 1330 кг/м3; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(176,130,text = "Период вращения = 9 ч 55 мин 29 с; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(165,150,text = "Период обращения — 11,86 года; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(128,170,text = "Наклон орбиты — 1,30°; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(195,190,text = "Среднее расстояние от солнца - 5,20 а.е; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(160,210,text = "Средняя температура - -108  °C ; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(92,230,text = "Состав Атмосферы:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(143,250,text = "Молекулярный водород 90%:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}5.create\underline{\hspace{0.2cm}}text(95,270,text = "Гелий около 10%", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}5.pack()
+
+def saturn\underline{\hspace{0.2cm}}menu():
+	
+	saturn\underline{\hspace{0.2cm}}menu = Toplevel(root)
+	
+	saturn\underline{\hspace{0.2cm}}menu.resizable(width = False, height = False)
+	
+	canv\underline{\hspace{0.2cm}}6 = Canvas(saturn\underline{\hspace{0.2cm}}menu, width=500, height=350, bg = 'black')
+	
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(250,20,text = "Сатурн:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(200,50,text = "Орбитальные и физические характеристики:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(145,70,text = "Радиус орбиты =  60 300 км; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(108,90,text = "Масса = 5.6×10²⁶ кг; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(123,110,text = "Плотность = 690 кг/м3; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(181,130,text = "Период вращения = 10 ч 40 мин 30 с; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(165,150,text = "Период обращения — 29,46 года; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(128,170,text = "Наклон орбиты — 2,50°; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(195,190,text = "Среднее расстояние от солнца - 9,54 а.е; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(160,210,text = "Средняя температура - -139  °C ; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(92,230,text = "Состав Атмосферы:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(143,250,text = "Молекулярный водород 96%:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}6.create\underline{\hspace{0.2cm}}text(89,270,text = "Гелий около 4%", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}6.pack()
+
+def uran_menu():
+
+	uran\underline{\hspace{0.2cm}}menu = Toplevel(root)
+	
+	uran\underline{\hspace{0.2cm}}menu.resizable(width = False, height = False)
+
+	canv\underline{\hspace{0.2cm}}7 = Canvas(uran\underline{\hspace{0.2cm}}menu, width=500, height=350, bg = 'black')
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(250,20,text = "Уран:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(200,50,text = "Орбитальные и физические характеристики:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(140,70,text = "Радиус орбиты =  25 360 км; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(108,90,text = "Масса = 8.68×10²⁵ кг; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(123,110,text = "Плотность = 1710 кг/м3; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(157,130,text = "Период вращения = 17 ч 14 мин; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(160,150,text = "Период обращения — 84,01 года; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(122,170,text = "Наклон орбиты — 0,77°; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(195,190,text = "Среднее расстояние от солнца - 19,18 а.е; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(158,210,text = "Средняя температура -  -197  °C ; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(92,230,text = "Состав Атмосферы:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(143,250,text = "Молекулярный водород 72%:", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(61,270,text = "Метан 2%", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}7.create\underline{\hspace{0.2cm}}text(93,290,text = "Гелий около 26%", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}7.pack()
+	
+def neptun\underline{\hspace{0.2cm}}menu():
+
+	neptun\underline{\hspace{0.2cm}}menu = Toplevel(root)
+	
+	neptun\underline{\hspace{0.2cm}}menu.resizable(width = False, height = False)
+	
+	canv\underline{\hspace{0.2cm}}8 = Canvas(neptun\underline{\hspace{0.2cm}}menu, width=500, height=350, bg = 'black')
+
+	canv_8.create\underline{\hspace{0.2cm}}text(250,20,text = "Нептун:", fill = "white", font =("Times",15))
+	
+	canv_8.create\underline{\hspace{0.2cm}}text(200,50,text = "Орбитальные и физические характеристики:", fill = "white", font =("Times",15))
+	
+	canv_8.create\underline{\hspace{0.2cm}}text(140,70,text = "Радиус орбиты =  24 622 км; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(108,90,text = "Масса = 1.02×10²⁶ кг; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(123,110,text = "Плотность = 2300 кг/м3; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(157,130,text = "Период вращения = 16 ч 03 мин; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(165,150,text = "Период обращения — 164,79 года; ", fill = "white", font =("Times",15))
+	
+	canv_8.create\underline{\hspace{0.2cm}}text(122,170,text = "Наклон орбиты — 1,77°; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(195,190,text = "Среднее расстояние от солнца - 30,06 а.е; ", fill = "white", font =("Times",15))
+
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(158,210,text = "Средняя температура -  -201  °C ; ", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(92,230,text = "Состав Атмосферы:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(143,250,text = "Молекулярный водород 80%:", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(95,270,text = "Метан около 1,5%", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}8.create\underline{\hspace{0.2cm}}text(93,290,text = "Гелий около 19%", fill = "white", font =("Times",15))
+	
+	canv\underline{\hspace{0.2cm}}8.pack()
+
+
+
+root = Tk()
+
+root.resizable(width = False, height = False)
+
+mainmenu = Menu(root)
+
+root.config(menu = mainmenu)
+
+
+filemenu = Menu(mainmenu, tearoff = 0)
+
+filemenu.add\underline{\hspace{0.2cm}}command(label = "Мercury", command = mercury\underline{\hspace{0.2cm}}menu)
+
+filemenu.add\underline{\hspace{0.2cm}}command(label = "Venera", command = venera\underline{\hspace{0.2cm}}menu)
+
+filemenu.add\underline{\hspace{0.2cm}}command(label = "Earth", command = earth\underline{\hspace{0.2cm}}menu)
+
+filemenu.add\underline{\hspace{0.2cm}}command(label = "Мars", command = mars\underline{\hspace{0.2cm}}menu)
+
+filemenu.add\underline{\hspace{0.2cm}}command(label = "Upiter", command = upiter\underline{\hspace{0.2cm}}menu)
+
+filemenu.add\underline{\hspace{0.2cm}}command(label = "Saturn", command = saturn\underline{\hspace{0.2cm}}menu)
+
+filemenu.add\underline{\hspace{0.2cm}}command(label = "Uran", command = uran\underline{\hspace{0.2cm}}menu)
+
+filemenu.add\underline{\hspace{0.2cm}}command(label = "Neptun", command = neptun\underline{\hspace{0.2cm}}menu)
+
+mainmenu.add\underline{\hspace{0.2cm}}cascade(label = "Info Planet", menu  = filemenu)
+
+canv = Canvas(root, width=1000, height=1000, bg = 'black')
+canv.pack()
+
+
+
+
+sun = Planet("oval", center = [500,500], scale = 30, fill\underline{\hspace{0.2cm}}color = "yellow")
+
+mercury\underline{\hspace{0.2cm}}path = [ [ 100*sin(2*pi*fi/200), - 100*cos(2*pi*fi/200) ] for fi in range(200)]
+
+mercury = Planet("oval", scale = 5, fill\underline{\hspace{0.2cm}}color = "#737B83",
+	     speed = 2, path = mercury\underline{\hspace{0.2cm}}path, path\underline{\hspace{0.2cm}}center = [500,500])
+
+venera\underline{\hspace{0.2cm}}path = [ [ 140*sin(2*pi*fi/300), - 140*cos(2*pi*fi/300) ] for fi in range(300)]
+
+venera = Planet("oval", scale = 10, fill\underline{\hspace{0.2cm}}color = "#D1C981",
+	       speed = 2, path = venera\underline{\hspace{0.2cm}}path, path\underline{\hspace{0.2cm}}center = [500,500])
+
+earth\underline{\hspace{0.2cm}}path = [ [ 200*sin(2*pi*fi/400), - 200*cos(2*pi*fi/400) ] for fi in range(400)]
+
+earth = Planet("oval", scale = 14, fill\underline{\hspace{0.2cm}}color = "#62EAE3",
+	       speed = 2, path = earth\underline{\hspace{0.2cm}}path, path\underline{\hspace{0.2cm}}center = [500,500])
+
+mars\underline{\hspace{0.2cm}}path = [ [ 245*sin(2*pi*fi/500), - 245*cos(2*pi*fi/500) ] for fi in range(500)]
+
+mars = Planet("oval", scale = 12, fill\underline{\hspace{0.2cm}}color = "#E03609",
+	       speed = 2, path = mars\underline{\hspace{0.2cm}}path, path\underline{\hspace{0.2cm}}center = [500,500])
+
+upiter\underline{\hspace{0.2cm}}path = [ [ 300*sin(2*pi*fi/600), - 300*cos(2*pi*fi/600) ] for fi in range(600)]
+
+upiter = Planet("oval", scale = 25, fill\underline{\hspace{0.2cm}}color = "#CC7119",
+	       speed = 2, path = upiter\underline{\hspace{0.2cm}}path, path\underline{\hspace{0.2cm}}center = [500,500])
+	      
+saturn\underline{\hspace{0.2cm}}path = [ [ 345*sin(2*pi*fi/700), - 365*cos(2*pi*fi/700) ] for fi in range(700)]
+
+saturn = Planet("oval", scale = 20, fill\underline{\hspace{0.2cm}}color = "#DFA771",
+	       speed = 2, path = saturn\underline{\hspace{0.2cm}}path, path\underline{\hspace{0.2cm}}center = [500,500])
+	       
+uran\underline{\hspace{0.2cm}}path = [ [ 405*sin(2*pi*fi/800), - 405*cos(2*pi*fi/800) ] for fi in range(800)]
+
+uran = Planet("oval", scale = 15, fill\underline{\hspace{0.2cm}}color = "#24CC8E",
+	       speed = 2, path = uran\underline{\hspace{0.2cm}}path, path\underline{\hspace{0.2cm}}center = [500,500])
+	       
+neptun\underline{\hspace{0.2cm}}path = [ [ 445*sin(2*pi*fi/900), - 445*cos(2*pi*fi/900) ] for fi in range(900)]
+
+neptun = Planet("oval", scale = 15, fill\underline{\hspace{0.2cm}}color = "#ABCAD0",
+	       speed = 2, path = neptun\underline{\hspace{0.2cm}}path, path\underline{\hspace{0.2cm}}center = [500,500])
+	      
+	       	       
+def disp\underline{\hspace{0.2cm}}rotate( ):
+	
+	mercury.move(1)
+	
+	venera.move(1)
+
+	earth.move(1)
+
+	mars.move(1)
+
+	upiter.move(1)
+
+	saturn.move(1)
+
+	uran.move(1)
+
+	neptun.move(1)
+
+	canv.after(38, disp\underline{\hspace{0.2cm}}rotate)
+
+disp\underline{\hspace{0.2cm}}rotate() 
+
+root.mainloop()
+
+
+
+Ссылка на Github:  https://github.com/ninjaz0r/Laba-6
+\addcontentsline{toc}{section}{Приложения}
+\end{document}
+
